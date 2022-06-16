@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import javassist.tools.rmi.ObjectNotFoundException;
 import net.javaguides.springboot.dto.PedidoDTO;
 import net.javaguides.springboot.model.Pedido;
+import net.javaguides.springboot.model.PedidoProducto;
+import net.javaguides.springboot.model.Producto;
 import net.javaguides.springboot.repository.PedidoRepository;
 import net.javaguides.springboot.security.entity.Usuario;
 import net.javaguides.springboot.service.PedidoService;

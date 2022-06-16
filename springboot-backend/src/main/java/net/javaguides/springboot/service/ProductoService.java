@@ -8,6 +8,8 @@ public interface ProductoService {
 	ProductoDTO saveOrUpdateProducto(ProductoDTO producto);
 
 	List<ProductoDTO> getAllProductos();
+	
+	List<ProductoDTO> getAllProductosOfertas();
 
 	List<ProductoDTO> getAllProductosActivos();
 

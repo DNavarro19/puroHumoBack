@@ -61,6 +61,28 @@ public class ProductoServiceImpl implements ProductoService {
 		return productosDto;
 
 	}
+	
+	@Override
+	public List<ProductoDTO> getAllProductosOfertas() {
+
+		List<ProductoDTO> productosDto = new ArrayList<ProductoDTO>();
+		
+		List<Producto> productosAux = new ArrayList<Producto>();
+
+		List<Producto> productos = productoRepository.findAll();
+
+		for (Producto producto : productos) {
+			if(producto.getOferta() != null)
+				productosAux.add(producto);
+		}
+		
+		for (Producto producto : productosAux) {
+			productosDto.add(this.modelMapper.map(producto, ProductoDTO.class));
+		}
+
+		return productosDto;
+
+	}
 
 	@Override
 	public List<ProductoDTO> getAllProductosActivos() {

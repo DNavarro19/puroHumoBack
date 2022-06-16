@@ -2,6 +2,7 @@ package net.javaguides.springboot.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +27,7 @@ public class PedidoProducto {
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "producto_id")
 	private Producto producto;
 

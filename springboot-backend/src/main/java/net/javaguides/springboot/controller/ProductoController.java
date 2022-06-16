@@ -52,6 +52,11 @@ public class ProductoController {
 		return productoService.getAllProductos();
 	}
 
+	@GetMapping("/getOfertas")
+	public List<ProductoDTO> getAllProductosOfertas() {
+		return productoService.getAllProductosOfertas();
+	}
+
 	@GetMapping("/get/activos")
 	public List<ProductoDTO> getAllProductosActivos() {
 		return productoService.getAllProductosActivos();
