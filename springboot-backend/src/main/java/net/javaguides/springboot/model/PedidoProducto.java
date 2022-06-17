@@ -33,6 +33,9 @@ public class PedidoProducto {
 
 	@Column(nullable = false)
 	private Integer cantidad;
+	
+	@Column(nullable = false)
+	private Double precio;
 
 	@Override
 	public boolean equals(Object o) {

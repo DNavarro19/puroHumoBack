@@ -13,4 +13,6 @@ public class PedidoProductoDTO {
 	
 	private Integer cantidad;
 	
+	private Double precio;
+	
 }
