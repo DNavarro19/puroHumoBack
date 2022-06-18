@@ -35,5 +35,4 @@ public class UsuarioController {
 		UsuarioDTO usuarioDTO = this.modelMapper.map(usuario, UsuarioDTO.class);
 		return new ResponseEntity(usuarioDTO, HttpStatus.OK);
 	}
-
 }

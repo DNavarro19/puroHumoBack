@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,5 +90,19 @@ public class AuthController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
 		return new ResponseEntity(jwtDto, HttpStatus.OK);
+	}
+	
+	@GetMapping("/existeUsuario/{nombreUsuario}")
+	public ResponseEntity<Boolean> existsUsuarioByNombreUsuario(@PathVariable("nombreUsuario") String nombreUsuario) {
+		if (!usuarioService.existsByNombreUsuario(nombreUsuario))
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+
+	@GetMapping("/existeEmail/{email}")
+	public ResponseEntity<Boolean> existsUsuarioByEmail(@PathVariable("email") String email) {
+		if (!usuarioService.existsByEmail(email))
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 }
