@@ -19,6 +19,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario save(Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}
+	
+	@Override
+	public Optional<Usuario> getByID(Long usuarioID) {
+		return usuarioRepository.findById(usuarioID);
+	}
 
 	@Override
 	public Optional<Usuario> getByNombreUsuario(String nombreUsuario) {

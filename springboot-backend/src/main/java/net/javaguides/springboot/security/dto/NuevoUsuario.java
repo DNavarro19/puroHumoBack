@@ -15,6 +15,8 @@ public class NuevoUsuario {
 
 	private String email;
 	
+	private String dni;
+	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date fechaNacimiento;
 

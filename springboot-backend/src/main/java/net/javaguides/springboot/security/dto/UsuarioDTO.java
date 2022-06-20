@@ -20,6 +20,8 @@ public class UsuarioDTO {
 	
 	private String email;
 	
+	private String dni;
+	
 	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date fechaNacimiento;
 	

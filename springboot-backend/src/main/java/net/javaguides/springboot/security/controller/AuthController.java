@@ -49,10 +49,9 @@ public class AuthController {
 
 	@Autowired
 	JwtProvider jwtProvider;
-	
-	
+
 	ModelMapper modelMapper;
-	
+
 	public AuthController() {
 		super();
 		this.modelMapper = new ModelMapper();
@@ -67,12 +66,28 @@ public class AuthController {
 		if (usuarioService.existsByEmail(nuevoUsuario.getEmail()))
 			return new ResponseEntity("ese email ya existe", HttpStatus.BAD_REQUEST);
 		Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
-				nuevoUsuario.getEmail(), nuevoUsuario.getFechaNacimiento(), passwordEncoder.encode(nuevoUsuario.getPassword()));
+				nuevoUsuario.getEmail(), nuevoUsuario.getDni(), nuevoUsuario.getFechaNacimiento(),
+				passwordEncoder.encode(nuevoUsuario.getPassword()));
 		Rol rol = null;
-		if (nuevoUsuario.getRol().contains("admin"))
-			rol = new Rol(RolNombre.ROLE_ADMIN);
-		else 
-			rol = new Rol(RolNombre.ROLE_USER);
+		rol = new Rol(RolNombre.ROLE_USER);
+		usuario.setRol(rol);
+		usuario = usuarioService.save(usuario);
+		UsuarioDTO usuarioDTO = this.modelMapper.map(usuario, UsuarioDTO.class);
+		return new ResponseEntity(usuarioDTO, HttpStatus.CREATED);
+	}
+
+	@PostMapping("/nuevoAdmin")
+	public ResponseEntity<?> nuevoAdmin(@RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
+		if (bindingResult.hasErrors())
+			return new ResponseEntity("campos mal puestos o email inválido", HttpStatus.BAD_REQUEST);
+		if (usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
+			return new ResponseEntity("ese nombre ya existe", HttpStatus.BAD_REQUEST);
+		if (usuarioService.existsByEmail(nuevoUsuario.getEmail()))
+			return new ResponseEntity("ese email ya existe", HttpStatus.BAD_REQUEST);
+		Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
+				nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
+		Rol rol = null;
+		rol = new Rol(RolNombre.ROLE_ADMIN);
 		usuario.setRol(rol);
 		usuario = usuarioService.save(usuario);
 		UsuarioDTO usuarioDTO = this.modelMapper.map(usuario, UsuarioDTO.class);
@@ -91,7 +106,7 @@ public class AuthController {
 		JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
 		return new ResponseEntity(jwtDto, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/existeUsuario/{nombreUsuario}")
 	public ResponseEntity<Boolean> existsUsuarioByNombreUsuario(@PathVariable("nombreUsuario") String nombreUsuario) {
 		if (!usuarioService.existsByNombreUsuario(nombreUsuario))

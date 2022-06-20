@@ -35,6 +35,9 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 	
+	@Column(unique = true)
+	private String dni;
+	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date fechaNacimiento;
 
@@ -54,11 +57,19 @@ public class Usuario {
 	}
 
 	public Usuario(@NotNull String nombre, @NotNull String nombreUsuario, @NotNull String email,
-			@NotNull Date fechaNacimiento, @NotNull String password) {
+			@NotNull String dni, @NotNull Date fechaNacimiento, @NotNull String password) {
 		this.nombre = nombre;
 		this.nombreUsuario = nombreUsuario;
 		this.email = email;
+		this.dni = dni;
 		this.fechaNacimiento = fechaNacimiento;
+		this.password = password;
+	}
+	
+	public Usuario(@NotNull String nombre, @NotNull String nombreUsuario, @NotNull String email, @NotNull String password) {
+		this.nombre = nombre;
+		this.nombreUsuario = nombreUsuario;
+		this.email = email;
 		this.password = password;
 	}
 
